@@ -13,7 +13,7 @@ function Profile(props) {
           </Button>
         </>
       );
-    return props.children 
+    return this.props.children 
 }
 
 export default function AuthProfile() {
