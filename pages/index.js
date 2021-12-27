@@ -7,6 +7,11 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     fetchPosts()
+    const mySubscription = supabase
+      .from('posts')
+      .on('*', () => fetchPosts())
+      .subscribe()
+    return () => supabase.removeSubscription(mySubscription)
   }, [])
   async function fetchPosts() {
     const { data, error } = await supabase
