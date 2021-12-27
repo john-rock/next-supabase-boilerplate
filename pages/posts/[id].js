@@ -12,7 +12,7 @@ export default function Post({ post }) {
       <h1 className="text-5xl mt-4 font-semibold tracking-wide">{post.title}</h1>
       <p className="text-sm font-light my-4">by {post.user_email}</p>
       <div className="mt-8">
-        <ReactMarkdown className='prose' children={this.post.content} />
+        <ReactMarkdown className='prose'>{post.content}</ReactMarkdown>
       </div>
     </div>
   )
