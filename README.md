@@ -20,7 +20,7 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 ## Database Schema
 
-Import the following sql to get started with a basic posts table.
+Import the following sql in Supabase to get started with a basic posts table.
 
 ```sql
 create table posts (
