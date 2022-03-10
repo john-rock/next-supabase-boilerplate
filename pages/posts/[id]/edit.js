@@ -1,29 +1,32 @@
 import { useRouter } from "next/dist/client/router";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { supabase } from "../../../supabase-client";
+import PostForm from "../../../components/PostForm";
 
-export default function ViewPost({ post }) {
+export default function EditPost({ post }) {
+  const [postContent, setPostContent] = useState(post.content);
   const router = useRouter();
 
   return (
     <>
-      <h1>Post details</h1>
-      <label>{post.content}</label>
-      <div>
-        <Link href={`/posts/${post.id}/edit`}>
-          <a className="button">Edit post</a>
-        </Link>
-        <button
-          onClick={async (evt) => {
-            await supabase.from("posts").delete().match({ id: post.id });
+      <h1>Edit post</h1>
+      <PostForm
+        postContent={postContent}
+        onPostContentChange={(evt) => setPostContent(evt.target.value)}
+        onSubmit={async (evt) => {
+          evt.preventDefault();
+          await supabase
+            .from("posts")
+            .update({
+              content: postContent,
+            })
+            .match({
+              id: post.id,
+            });
 
-            router.replace("/");
-          }}
-        >
-          Delete post
-        </button>
-      </div>
+          router.push("/");
+        }}
+      />
     </>
   );
 }

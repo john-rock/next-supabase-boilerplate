@@ -46,22 +46,22 @@ export default function Home({ posts }) {
 export const getServerSideProps = async (context) => {
   // get the user using the "sb:token" cookie
   const { user } = await supabase.auth.api.getUserByCookie(context.req);
-  if (!user) {
-    return {
-      redirect: {
-        destination: "/signin",
-        permanent: false,
-      },
-    };
-  }
+  // if (!user) {
+  //   return {
+  //     redirect: {
+  //       destination: "/signin",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
-  // Query all bikes
+  // Query all posts
   supabase.auth.setAuth(context.req.cookies["sb:token"]);
   const { data: posts, error } = await supabase.from("posts").select();
 
   if (error) {
     // Return 404 response.
-    // No bikes found or something went wrong with the query
+    // No posts found or something went wrong with the query
     return {
       notFound: true,
     };
