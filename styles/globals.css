@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply overflow-x-hidden;
+}
+
+#__next {
+  @apply min-h-screen;
+}
