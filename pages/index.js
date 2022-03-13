@@ -1,21 +1,18 @@
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { supabase } from "../supabase-client";
-import { useSession } from "../utils/user-context";
-import { useRouter } from "next/router";
+import { supabase } from '../supabase-client';
+import { useSession } from '../utils/user-context';
+import { useRouter } from 'next/router';
 
 export default function Home({ posts }) {
   const { session } = useSession();
+  const router = useRouter();
   return (
     <div>
-      <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2">
-        NextJS Supabase Starter
-      </h1>
+      <h1>NextJS Supabase Starter</h1>
 
       <ul>
         {(posts || []).map((post) => (
           <li key={post.id}>
-            <a className="button" href={`/posts/${post.id}`}>
+            <a className='button' href={`/posts/${post.id}`}>
               {post.content}
             </a>
           </li>
@@ -31,7 +28,7 @@ export default function Home({ posts }) {
             <button
               onClick={() => {
                 supabase.auth.signOut();
-                router.replace("/signin");
+                router.replace('/signin');
               }}
             >
               Sign out
@@ -56,8 +53,8 @@ export const getServerSideProps = async (context) => {
   // }
 
   // Query all posts
-  supabase.auth.setAuth(context.req.cookies["sb:token"]);
-  const { data: posts, error } = await supabase.from("posts").select();
+  supabase.auth.setAuth(context.req.cookies['sb:token']);
+  const { data: posts, error } = await supabase.from('posts').select();
 
   if (error) {
     // Return 404 response.
